@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Карусель баннеров LikeVPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Rubik', sans-serif; }
+
+    .carousel {
+      position: relative;
+      max-width: 1150px; /* Уменьшено с 1200px */
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 150px; /* Уменьшено с 180px */
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      text-align: center;
+      padding: 6px; /* Уменьшено с 8px */
+    }
+
+    .banner-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-image: url('/bglk1.png');
+      background-size: cover;
+      background-position: center;
+      height: 138px; /* 150px - 2*6px padding */
+      padding: 15px; /* Уменьшено с 20px */
+      color: white;
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
+      border-radius: 8px; /* Уменьшено с 10px */
+    }
+
+    .banner-content {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding-right: 140px; /* Уменьшено с 160px */
+    }
+
+    .banner-left {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+      font-size: 18px; /* Уменьшено с 20px */
+      font-weight: bold;
+      padding-right: 15px; /* Уменьшено с 20px */
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .banner-image {
+      flex-shrink: 0;
+      width: 100px; /* Уменьшено с 124px */
+      height: 100px;
+      object-fit: contain;
+      margin-right: 15px; /* Уменьшено с 20px */
+    }
+
+    .subscribe-btn {
+      position: absolute;
+      bottom: 15px; /* Уменьшено с 20px */
+      right: 15px;
+      display: inline-block;
+      padding: 8px 16px; /* Уменьшено с 10px 20px */
+      background-color: #2199abfa;
+      color: white;
+      font-size: 14px; /* Уменьшено с 16px */
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px; /* Уменьшено с 8px */
+      transition: background-color 0.3s ease;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #2199ab95;
+    }
+
+    .pagination {
+      position: absolute;
+      bottom: 10px; /* Уменьшено с 12px */
+      width: 100%;
+      text-align: center;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 6px; /* Уменьшено с 8px */
+      height: 6px;
+      margin: 0 3px; /* Уменьшено с 4px */
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: #717171;
+    }
+
+    @media (max-width: 768px) {
+      .carousel {
+        max-width: 95%;
+      }
+      
+      .banner-wrapper {
+        height: 120px; /* Уменьшено с 140px */
+        padding: 12px; /* Уменьшено с 15px */
+      }
+      
+      .banner-left {
+        font-size: 15px; /* Уменьшено с 16px */
+        padding-right: 12px; /* Уменьшено с 15px */
+      }
+
+      .banner-image {
+        width: 110px; /* Уменьшено с 80px */
+        height: 110px;
+        margin-right: 12px; /* Уменьшено с 15px */
+      }
+      
+      .banner-content {
+        padding-right: 120px; /* Уменьшено с 130px */
+      }
+      
+      .subscribe-btn {
+        padding: 7px 14px; /* Уменьшено с 8px 16px */
+        font-size: 13px; /* Уменьшено с 14px */
+        bottom: 12px; /* Уменьшено с 15px */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .banner-wrapper {
+        height: 100px; /* Уменьшено с 120px */
+        padding: 8px; /* Уменьшено с 10px */
+      }
+      
+      .banner-left {
+        font-size: 13px; /* Уменьшено с 14px */
+        padding-right: 8px; /* Уменьшено с 10px */
+      }
+
+      .banner-image {
+        width: 50px; /* Уменьшено с 60px */
+        height: 50px;
+        margin-right: 8px; /* Уменьшено с 10px */
+      }
+      
+      .banner-content {
+        padding-right: 90px; /* Уменьшено с 110px */
+      }
+      
+      .subscribe-btn {
+        padding: 5px 10px; /* Уменьшено с 6px 12px */
+        font-size: 11px; /* Уменьшено с 12px */
+        bottom: 8px; /* Уменьшено с 10px */
+        right: 8px; /* Уменьшено с 10px */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="carousel" id="carousel">
+  <div class="slides" id="slides">
+    
+    <!-- Баннер 1 -->
+    <div class="slide" id="banner1">
+      <div class="banner-wrapper">
+        <div class="banner-content">
+          <div class="banner-left">Stay updated on news and discounts — subscribe to our Telegram channel</div>
+          <img class="banner-image" src="./картинка.png" alt="Дополнительная картинка" />
+        </div>
+        <a class="subscribe-btn" href="http://t.me/likevps" target="_blank">Subscribe</a>
+      </div>
+    </div>
+
+    <!-- Баннер 2 -->
+    <div class="slide" id="banner2">
+      <a href="https://likevps.net/vps" target="_blank">
+        <img src="./image2.png" alt="Баннер 2" style="max-height: 138px; width: auto; margin: 0 auto; display: block;" />
+      </a>
+    </div>
+
+  </div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<script>
+  const slidesContainer = document.getElementById('slides');
+  const pagination = document.getElementById('pagination');
+  const banner2 = document.querySelector('#banner2 img');
+  let index = 0;
+  let interval;
+
+  banner2.addEventListener('error', () => {
+    document.getElementById('banner2')?.remove();
+    initCarousel();
+  });
+
+  if (banner2.complete) {
+    if (!banner2.naturalWidth) {
+      document.getElementById('banner2')?.remove();
+    }
+    initCarousel();
+  } else {
+    banner2.addEventListener('load', initCarousel);
+  }
+
+  function updateSlidePosition() {
+    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  function createPagination(totalSlides) {
+    pagination.innerHTML = '';
+    if (totalSlides <= 1) {
+      pagination.style.display = 'none';
+      return;
+    }
+    pagination.style.display = 'block';
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        index = i;
+        updateSlidePosition();
+      });
+      pagination.appendChild(dot);
+    }
+  }
+
+  function startCarousel(totalSlides) {
+    if (interval) clearInterval(interval);
+    if (totalSlides <= 1) return;
+
+    interval = setInterval(() => {
+      index = (index + 1) % totalSlides;
+      updateSlidePosition();
+    }, 5000);
+  }
+
+  function initCarousel() {
+    const totalSlides = slidesContainer.children.length;
+    index = 0;
+    createPagination(totalSlides);
+    updateSlidePosition();
+    startCarousel(totalSlides);
+  }
+
+  initCarousel();
+</script>
+
+</body>
+</html>
