@@ -11,10 +11,10 @@
 
     .carousel {
       position: relative;
-      max-width: 1150px;
       margin: 0 auto;
       overflow: hidden;
       max-height: 150px;
+      width: 100%;
     }
 
     .slides {
@@ -40,6 +40,7 @@
       text-shadow: 0 0 4px rgba(0,0,0,0.6);
       border-radius: 8px;
       overflow: hidden;
+      width: 100%;
     }
 
     .banner1-bg {
@@ -64,7 +65,6 @@
       gap: 15px;
     }
 
-    /* --- Hack Bonus Block Styles --- */
     .hackbonus-block {
       font-size: 16px;
       font-weight: 500;
@@ -83,7 +83,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      white-space: nowrap; /* Prevent line break */
+      white-space: nowrap;
       width: 100%;
       text-align: center;
     }
@@ -137,50 +137,13 @@
       cursor: pointer;
       overflow: hidden;
       border-radius: 50%;
-    }
-
-    /* --- PNG contour glow effect --- */
-    @keyframes pngGlow {
-      0%, 100% {
-        filter: drop-shadow(0 0 0px #7eefffcc) drop-shadow(0 0 0px #2199abcc);
-      }
-      50% {
-        filter: 
-          drop-shadow(0 0 8px #7eefffcc)
-          drop-shadow(0 0 16px #2199ab99);
-      }
-    }
-    .banner-image {
       flex-shrink: 0;
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      margin-right: 15px;
-      animation: pngGlow 1.8s infinite;
-      transition: filter 0.22s cubic-bezier(.4,2,.6,1);
-      background: none;
-      box-shadow: none;
-    }
-
-    /* --- Permanent animation for bonus.png --- */
-    @keyframes bonusPulse {
-      0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0,255,195,0.55);
-      }
-      70% {
-        transform: scale(1.06);
-        box-shadow: 0 0 16px 8px rgba(0,255,195,0.18);
-      }
-      100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(0,255,195,0.06);
-      }
+      /* Обеспечиваем, что картинка внутри всегда по размеру контейнера */
     }
 
     .banner-image-link .banner-imagebonus {
-      width: 150px;
-      height: 150px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       transition:
         transform 0.22s cubic-bezier(.4,2,.6,1),
@@ -195,6 +158,24 @@
       position: relative;
       z-index: 1;
       animation: bonusPulse 1.7s infinite;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+
+    @keyframes bonusPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,255,195,0.55);
+      }
+      70% {
+        transform: scale(1.06);
+        box-shadow: 0 0 16px 8px rgba(0,255,195,0.18);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0,255,195,0.06);
+      }
     }
 
     .banner-image-link:hover .banner-imagebonus,
@@ -248,6 +229,31 @@
       filter: brightness(1.25) drop-shadow(0 0 18px #00ffc388);
     }
 
+    .banner-image {
+      flex-shrink: 0;
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      margin-right: 15px;
+      animation: pngGlow 1.8s infinite;
+      transition: filter 0.22s cubic-bezier(.4,2,.6,1);
+      background: none;
+      box-shadow: none;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    @keyframes pngGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 0px #7eefffcc) drop-shadow(0 0 0px #2199abcc);
+      }
+      50% {
+        filter: 
+          drop-shadow(0 0 8px #7eefffcc)
+          drop-shadow(0 0 16px #2199ab99);
+      }
+    }
+
     .subscribe-btn {
       position: absolute;
       bottom: 15px;
@@ -290,25 +296,25 @@
     }
 
     @media (max-width: 768px) {
-      .carousel { max-width: 95%; }
+      .carousel { width: 100%; max-width: none; }
       .banner-wrapper { height: 120px; padding: 12px; }
       .banner-left { font-size: 15px; padding-right: 12px; }
       .banner-image { width: 110px; height: 110px; margin-right: 12px; }
       .banner-content { padding-right: 120px; }
       .subscribe-btn { padding: 7px 14px; font-size: 13px; bottom: 12px; }
-      .banner-imagebonus { width: 90px; height: 90px; }
+      .banner-image-link { width: 75px; height: 75px; }
     }
 
     @media (max-width: 480px) {
       .banner-wrapper { height: 100px; padding: 8px; }
       .banner-left { font-size: 13px; padding-right: 8px; }
-      .banner-image { width: 50px; height: 50px; margin-right: 8px; }
-      .banner-content { padding-right: 90px; }
+      .banner-image { width: 36px; height: 36px; margin-right: 8px; }
+      .banner-content { padding-right: 64px; }
       .subscribe-btn { padding: 5px 10px; font-size: 11px; bottom: 8px; right: 8px; }
-      .banner-imagebonus { width: 50px; height: 50px; }
+      .banner-image-link { width: 24px; height: 24px; }
     }
 
-    /* --- Only for banner2: decrease text size on mobile --- */
+    /* --- Только для banner2: ещё меньше шрифты на мобильных --- */
     @media (max-width: 600px) {
       #banner2 .hackbonus-block,
       #banner2 .hackbonus-title,
@@ -356,7 +362,7 @@
               </li>
             </ul>
           </div>
-          <a href="https://likevps.net/blog" target="_blank" class="banner-image-link">
+          <a href="https://likevps.net/blog/bonus" target="_blank" class="banner-image-link">
             <img class="banner-imagebonus" src="./bonus.png" alt="Bonus image" />
           </a>
         </div>
